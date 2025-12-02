@@ -11,11 +11,29 @@ $game_height = 5; // Nombre de lignes de cartes
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <title>Mémo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <title>Super Mémo PHP</title>
 </head>
 
 <body>
-    <h1>Jeu de mémo !</h1>
+    <header>
+        <h1>🧠 Super Mémo</h1>
+        <p>Retrouvez toutes les paires le plus vite possible !</p>
+    </header>
+
+    <section class="game-stats">
+        <div class="stat-box">
+            <span class="label">Temps</span>
+            <span class="value" id="timer">00:00</span>
+        </div>
+
+        <div class="stat-box">
+            <span class="label">Coups</span>
+            <span class="value" id="moves">0</span>
+        </div>
+
+        <button id="restart-btn" class="btn-restart">🔄 Recommencer</button>
+    </section>
     <div id="game">
         <?php for ($i = 0; $i < $game_height; $i++): ?>
             <div class="row">
@@ -29,13 +47,26 @@ $game_height = 5; // Nombre de lignes de cartes
                         </label>
                         <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
                     </div>
-                <?php endfor; ?>
+                    <div class="card-back">
+                        <img src="/assets/images/card-front.png" alt="Carte">
+                    </div>
+                </label>
+                <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
             </div>
+            <?php endfor; ?>
+        </div>
         <?php endfor; ?>
         <div>
             <p id="score">
                 score :
             </p>
+        </div>
+    </div>
+    <div id="victory-modal" class="modal">
+        <div class="modal-content">
+            <h2>🎉 Bravo ! 🎉</h2>
+            <p>Tu as gagné en <span id="final-time"></span> et <span id="final-moves"></span> coups.</p>
+            <button id="play-again-btn">Rejouer</button>
         </div>
     </div>
     <script src="script.js"></script>
