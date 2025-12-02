@@ -31,6 +31,11 @@
   transform: rotateY(180deg);
 }
 
+.card.matched {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .card-inner .card-front,
 .card-inner .card-back {
   position: absolute;

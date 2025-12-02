@@ -56,13 +56,13 @@ $game_height = 6; // Nombre de lignes de cartes
             </p>
         </div>
     </div>
-    <!-- <div id="victory-modal" class="modal">
+    <div id="victory-modal" class="modal">
         <div class="modal-content">
             <h2>🎉 Bravo ! 🎉</h2>
             <p>Tu as gagné en <span id="final-time"></span> et <span id="final-moves"></span> coups.</p>
             <button id="play-again-btn">Rejouer</button>
         </div>
-    </div> -->
+    </div>
     <script src="script.js"></script>
 </body>
 
