@@ -1,0 +1,16 @@
+#game {
+    --grid-height : 5; /* Nombre de lignes de cartes */
+    --grid-width : 5; /* Nombre de cartes par ligne */
+    display: grid;
+    grid-template-columns: repeat(var(--grid-width), 1fr);
+    grid-template-rows: repeat(var(--grid-height), 1fr);
+    gap: 10px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.card {
+    background-color: aliceblue;
+    width: 100%;
+    height: 100%;
+}
