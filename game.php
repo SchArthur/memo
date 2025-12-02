@@ -1,7 +1,7 @@
 <?php
 
 $game_width = 5; // Nombre de cartes par ligne
-$game_height = 5; // Nombre de lignes de cartes
+$game_height = 6; // Nombre de lignes de cartes
 
 ?>
 <!DOCTYPE html>
