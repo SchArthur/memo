@@ -21,15 +21,15 @@ $game_height = 5; // Nombre de lignes de cartes
             <div class="row">
                 <?php for ($j = 0; $j < $game_width; $j++) : ?>
                     <div class="card" data-row="<?= $i ?>" data-col="<?= $j ?>" id="card-<?= $i ?>-<?= $j ?>">
-                        <div class="card-inner">
+                        <label for="checkbox-<?= $i ?>-<?= $j ?>" class="card-inner">
                             <div class="card-front">
                                 <img src="/assets/images/card-back.png" alt="Carte">
                             </div>
                             <div class="card-back">
                                 <img src="/assets/images/card-front.png" alt="Carte">
                             </div>
-                            <input type="checkbox" for="card-<?= $i ?>-<?= $j ?>" class="card-checkbox">
-                        </div>
+                        </label>
+                        <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
                     </div>
                 <?php endfor; ?>
             </div>
