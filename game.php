@@ -17,9 +17,9 @@ $game_height = 5; // Nombre de lignes de cartes
 <body>
     <h1>Jeu de mémo !</h1>
     <div id="game">
-        <?php for ($i = 0; $i < $game_height; $i++) : ?>
+        <?php for ($i = 0; $i < $game_height; $i++): ?>
             <div class="row">
-                <?php for ($j = 0; $j < $game_width; $j++) : ?>
+                <?php for ($j = 0; $j < $game_width; $j++): ?>
                     <div class="card" data-row="<?= $i ?>" data-col="<?= $j ?>">
                         <div class="card-inner">
                             <div class="card-front">
@@ -33,7 +33,13 @@ $game_height = 5; // Nombre de lignes de cartes
                 <?php endfor; ?>
             </div>
         <?php endfor; ?>
+        <div>
+            <p id="score">
+                score :
+            </p>
+        </div>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
