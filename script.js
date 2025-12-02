@@ -37,69 +37,193 @@ gameDeck.sort(() => 0.5 - Math.random());
 
 // 3. Distribution : On met les emojis dans les cartes HTML
 cards.forEach((card, index) => {
-  // On cible la face arrière (.card-back)
-  const backFace = card.querySelector(".card-back");
+  const frontFace = card.querySelector(".card-front");
   // Pour l'exemple, on remplace l'image par l'émoji.
-  // Si tu as de vraies images, tu changerais card.querySelector('img').src
-  backFace.innerHTML = `<div style="font-size:3rem; display:flex; justify-content:center; align-items:center; height:100%;">${gameDeck[index]}</div>`;
+  frontFace.innerHTML = `<div style="font-size:3rem; display:flex; justify-content:center; align-items:center; height:100%;">${gameDeck[index]}</div>`;
 
   // On stocke la valeur de la carte dans un attribut pour la comparaison facile
   card.dataset.value = gameDeck[index];
-
-  // Ajout de l'événement clic
-  card.addEventListener("click", flipCard);
 });
 
-// 4. Logique du jeu
-let hasFlippedCard = false;
-let lockBoard = false; // Empêche de cliquer sur plus de 2 cartes
-let firstCard, secondCard;
+// 4. Logique de jeu
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let matchedPairs = 0;
+let moves = 0;
+let timerInterval = null;
+let seconds = 0;
+let gameStarted = false;
 
+// Éléments du DOM
+const timerElement = document.getElementById("timer");
+const movesElement = document.getElementById("moves");
+const restartBtn = document.getElementById("restart-btn");
+const victoryModal = document.getElementById("victory-modal");
+const playAgainBtn = document.getElementById("play-again-btn");
+const finalTimeElement = document.getElementById("final-time");
+const finalMovesElement = document.getElementById("final-moves");
+
+// Cacher la modal au départ
+victoryModal.style.display = "none";
+
+// Fonction pour démarrer le timer
+function startTimer() {
+  if (!gameStarted) {
+    gameStarted = true;
+    timerInterval = setInterval(() => {
+      seconds++;
+      const mins = Math.floor(seconds / 60)
+        .toString()
+        .padStart(2, "0");
+      const secs = (seconds % 60).toString().padStart(2, "0");
+      timerElement.textContent = `${mins}:${secs}`;
+    }, 1000);
+  }
+}
+
+// Fonction pour arrêter le timer
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+// Fonction pour réinitialiser le timer
+function resetTimer() {
+  stopTimer();
+  seconds = 0;
+  timerElement.textContent = "00:00";
+  gameStarted = false;
+}
+
+// Fonction pour incrémenter les coups
+function incrementMoves() {
+  moves++;
+  movesElement.textContent = moves;
+}
+
+// Fonction pour retourner une carte
 function flipCard() {
-  // Si le plateau est verrouillé ou si on clique sur la même carte, on ne fait rien
   if (lockBoard) return;
   if (this === firstCard) return;
 
-  // Ajoute la classe CSS pour l'animation
-  this.classList.add("flip");
+  // Démarrer le timer au premier clic
+  startTimer();
 
-  if (!hasFlippedCard) {
-    // Premier clic
-    hasFlippedCard = true;
+  const checkbox = this.querySelector(".card-checkbox");
+  checkbox.checked = true;
+
+  if (!firstCard) {
+    // Première carte retournée
     firstCard = this;
     return;
   }
 
-  // Deuxième clic
+  // Deuxième carte retournée
   secondCard = this;
+  lockBoard = true;
+
+  incrementMoves();
   checkForMatch();
 }
 
+// Fonction pour vérifier si les cartes correspondent
 function checkForMatch() {
-  // Comparaison des valeurs
-  let isMatch = firstCard.dataset.value === secondCard.dataset.value;
+  const isMatch = firstCard.dataset.value === secondCard.dataset.value;
 
-  isMatch ? disableCards() : unflipCards();
+  if (isMatch) {
+    disableCards();
+    matchedPairs++;
+    checkVictory();
+  } else {
+    unflipCards();
+  }
 }
 
+// Fonction pour désactiver les cartes qui correspondent
 function disableCards() {
-  // C'est une paire ! On enlève les écouteurs d'événements
-  firstCard.removeEventListener("click", flipCard);
-  secondCard.removeEventListener("click", flipCard);
+  firstCard.classList.add("matched");
+  secondCard.classList.add("matched");
+
   resetBoard();
 }
 
+// Fonction pour retourner les cartes qui ne correspondent pas
 function unflipCards() {
-  lockBoard = true; // On bloque le plateau le temps de l'animation
-  // Pas de paire : on retourne les cartes après 1 seconde
   setTimeout(() => {
-    firstCard.classList.remove("flip");
-    secondCard.classList.remove("flip");
+    firstCard.querySelector(".card-checkbox").checked = false;
+    secondCard.querySelector(".card-checkbox").checked = false;
+
     resetBoard();
   }, 1000);
 }
 
+// Fonction pour réinitialiser le plateau
 function resetBoard() {
-  [hasFlippedCard, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
+  lockBoard = false;
 }
+
+// Fonction pour vérifier la victoire
+function checkVictory() {
+  if (matchedPairs === pairsNeeded) {
+    stopTimer();
+    showVictoryModal();
+  }
+}
+
+// Fonction pour afficher la modal de victoire
+function showVictoryModal() {
+  const mins = Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const secs = (seconds % 60).toString().padStart(2, "0");
+  finalTimeElement.textContent = `${mins}:${secs}`;
+  finalMovesElement.textContent = moves;
+
+  victoryModal.style.display = "flex";
+}
+
+// Fonction pour réinitialiser le jeu
+function restartGame() {
+  // Cacher la modal
+  victoryModal.style.display = "none";
+
+  // Réinitialiser les variables
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+  matchedPairs = 0;
+  moves = 0;
+  movesElement.textContent = "0";
+
+  // Réinitialiser le timer
+  resetTimer();
+
+  // Remélanger les cartes
+  gameDeck.sort(() => 0.5 - Math.random());
+
+  // Redistribuer et réinitialiser les cartes
+  cards.forEach((card, index) => {
+    const frontFace = card.querySelector(".card-front");
+    frontFace.innerHTML = `<div style="font-size:3rem; display:flex; justify-content:center; align-items:center; height:100%;">${gameDeck[index]}</div>`;
+    card.dataset.value = gameDeck[index];
+
+    // Retourner toutes les cartes face cachée
+    card.querySelector(".card-checkbox").checked = false;
+    card.classList.remove("matched");
+  });
+}
+
+// Ajouter les événements de clic sur les cartes
+cards.forEach((card) => {
+  card.addEventListener("click", (event) => {
+    event.preventDefault();
+    flipCard.call(card);
+  });
+});
+
+// Ajouter l'événement pour le bouton recommencer
+restartBtn.addEventListener("click", restartGame);
+
+// Ajouter l'événement pour le bouton rejouer
+playAgainBtn.addEventListener("click", restartGame);
