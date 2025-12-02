@@ -15,10 +15,9 @@ Un petit jeu de mémoire classique développé pour s'entraîner aux interaction
 * **Statistiques en temps réel :** Compteur de temps (chronomètre) et compteur de coups joués.
 * **Interface utilisateur :**
 
-      * Animations de retournement de cartes (Flip 3D CSS).
-  
-      * Modale de victoire ("Pop-up") affichant le score final.
+  * Animations de retournement de cartes (Flip 3D CSS).
 
+  * Modale de victoire ("Pop-up") affichant le score final.
 * **Responsive :** La grille s'adapte aux écrans.
 
 ## 🛠️ Stack Technique
@@ -36,7 +35,9 @@ Puisque ce projet utilise du **PHP** pour générer la grille, il nécessite un 
 
 ## 📸 Aperçu
 
+![1764690229755](image/README/1764690229755.png)
 
+![1764690312777](image/README/1764690312777.png)
 
 ## 🔜 Améliorations futures (To-Do)
 
