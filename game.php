@@ -10,7 +10,7 @@ $game_height = 5; // Nombre de lignes de cartes
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/game.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <title>Mémo</title>
 </head>
 
