@@ -1,30 +1,81 @@
 #game {
-    display: block;
-    margin: 20px auto;
-    width: 80vw;
+  display: block;
+  margin: 20px auto;
+  width: 80vw;
 }
 
 #game .row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 #game .card {
-    width: calc(50vw / 5 - 12px); /* Ajuster en fonction du nombre de cartes par ligne */
-    height: calc(50vw / 5 - 12px); /* Ajuster en fonction du nombre de cartes par ligne */
-    margin: 6px;
-    perspective: 1000px;
-    cursor: pointer;
+  width: calc(
+    50vw / 5 - 12px
+  ); /* Ajuster en fonction du nombre de cartes par ligne */
+  height: calc(
+    50vw / 5 - 12px
+  ); /* Ajuster en fonction du nombre de cartes par ligne */
+  margin: 6px;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
 .card input[type="checkbox"] {
-    display: none;
+  display: none;
 }
 
 .card-inner {
-    display: block;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  font-family: "Fredoka", sans-serif;
+}
+.stat-box {
+  background: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex; /* Centrer le contenu */
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
