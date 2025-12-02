@@ -47,14 +47,8 @@ $game_height = 5; // Nombre de lignes de cartes
                         </label>
                         <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
                     </div>
-                    <div class="card-back">
-                        <img src="/assets/images/card-front.png" alt="Carte">
-                    </div>
-                </label>
-                <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
+                <?php endfor; ?>
             </div>
-            <?php endfor; ?>
-        </div>
         <?php endfor; ?>
         <div>
             <p id="score">
@@ -62,13 +56,13 @@ $game_height = 5; // Nombre de lignes de cartes
             </p>
         </div>
     </div>
-    <div id="victory-modal" class="modal">
+    <!-- <div id="victory-modal" class="modal">
         <div class="modal-content">
             <h2>🎉 Bravo ! 🎉</h2>
             <p>Tu as gagné en <span id="final-time"></span> et <span id="final-moves"></span> coups.</p>
             <button id="play-again-btn">Rejouer</button>
         </div>
-    </div>
+    </div> -->
     <script src="script.js"></script>
 </body>
 
