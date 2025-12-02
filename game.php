@@ -1,7 +1,7 @@
 <?php
 
 $game_width = 5; // Nombre de cartes par ligne
-$game_height = 5; // Nombre de lignes de cartes
+$game_height = 6; // Nombre de lignes de cartes
 
 ?>
 <!DOCTYPE html>
@@ -47,14 +47,8 @@ $game_height = 5; // Nombre de lignes de cartes
                         </label>
                         <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
                     </div>
-                    <div class="card-back">
-                        <img src="/assets/images/card-front.png" alt="Carte">
-                    </div>
-                </label>
-                <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
+                <?php endfor; ?>
             </div>
-            <?php endfor; ?>
-        </div>
         <?php endfor; ?>
         <div>
             <p id="score">
