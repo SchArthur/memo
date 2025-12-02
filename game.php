@@ -23,10 +23,8 @@ $game_height = 5; // Nombre de lignes de cartes
                     <div class="card" data-row="<?= $i ?>" data-col="<?= $j ?>" id="card-<?= $i ?>-<?= $j ?>">
                         <label for="checkbox-<?= $i ?>-<?= $j ?>" class="card-inner">
                             <div class="card-front">
-                                <img src="/assets/images/card-back.png" alt="Carte">
                             </div>
                             <div class="card-back">
-                                <img src="/assets/images/card-front.png" alt="Carte">
                             </div>
                         </label>
                         <input type="checkbox" id="checkbox-<?= $i ?>-<?= $j ?>" class="card-checkbox" />
